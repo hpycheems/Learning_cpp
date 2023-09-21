@@ -38,7 +38,7 @@ void test6_2() {
 	cout << MyAdd()(20, 30) << endl;
 }
 
-int main6() {
+int main() {
 
 	//test6_1();
 
