@@ -1,0 +1,24 @@
+﻿  swap.cpp
+  函数.cpp
+D:\work\C++Project\c++Learning\c++Learning\函数.cpp(66,23): warning C4018: “<”: 有符号/无符号不匹配
+  函数的分文件编写.cpp
+  循环结构.cpp
+  指针.cpp
+  数据类型.cpp
+D:\work\C++Project\c++Learning\c++Learning\数据类型.cpp(51,17): warning C4305: “初始化”: 从“double”到“float”截断
+  数组.cpp
+D:\work\C++Project\c++Learning\c++Learning\数组.cpp(98,23): warning C4018: “<”: 有符号/无符号不匹配
+  注释.cpp
+  first.cpp
+  关键字.cpp
+  变量.cpp
+  命令规则.cpp
+  常量.cpp
+  结构体.cpp
+  结构体案例.cpp
+  跳转语句.cpp
+  选择结构.cpp
+  运算符.cpp
+  正在生成代码...
+MSVCRTD.lib(exe_main.obj) : error LNK2019: 无法解析的外部符号 _main，函数 "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) 中引用了该符号
+D:\work\C++Project\c++Learning\Debug\c++Learning.exe : fatal error LNK1120: 1 个无法解析的外部命令
