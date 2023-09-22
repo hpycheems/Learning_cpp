@@ -18,6 +18,7 @@ public :
 void test6_1() {
 	MyPrint m;
 	m("Hello World!");
+	MyPrint()("hello c++");
 
 }
 //仿函数没有固定写法，非常灵活
@@ -38,7 +39,7 @@ void test6_2() {
 	cout << MyAdd()(20, 30) << endl;
 }
 
-int main() {
+int main6() {
 
 	//test6_1();
 
