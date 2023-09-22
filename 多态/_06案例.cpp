@@ -102,7 +102,7 @@ void test6_1() {
 	computer2.DoWork();
 }
 
-int main() {
+int main6() {
 
 	test6_1();
 	system("pause");
