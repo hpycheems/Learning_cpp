@@ -24,6 +24,7 @@
     <ProjectGuid>{61c1a6e3-0f9b-4333-84c7-77cc2411f24b}</ProjectGuid>
     <RootNamespace>C对象模型和this指针</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>_05C++对象模型和this指针</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
