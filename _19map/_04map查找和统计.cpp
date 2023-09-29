@@ -23,7 +23,7 @@ void test4_1() {
 		cout << "未能查找到元素" << endl;
 	}
 
-	//统计
+	//统计 由于map容器只能存在唯一的键值 所有返回值为 0 或1
 	int num = m.count(2);
 	cout << "key 为2的元素有：" << num << endl;
 

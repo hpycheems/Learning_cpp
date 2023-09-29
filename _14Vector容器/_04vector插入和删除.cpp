@@ -26,21 +26,23 @@ void test4_1() {
 	{
 		v1.push_back(i);
 	}
-
+	//Î²²å
 	v1.push_back(10);
 	printVector4(v1);
 	v1.pop_back();
 	printVector4(v1);
 
-
+	//inser²åÈë
 	v1.insert(v1.begin(), 100);
 	printVector4(v1);
 	v1.insert(v1.begin(), 2, 1000);
 	printVector4(v1);
 
+	//É¾³ý
 	v1.erase(v1.begin());
 	printVector4(v1);
 
+	//Çå¿Õ
 	v1.clear();
 	printVector4(v1);
 

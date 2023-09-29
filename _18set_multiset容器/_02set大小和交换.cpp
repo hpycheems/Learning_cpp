@@ -30,7 +30,7 @@ void test2_1() {
 	}
 
 }
-
+//½»»»
 void test2_2() {
 	set<int> s;
 	s.insert(10);

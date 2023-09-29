@@ -16,6 +16,7 @@ void test4_1() {
 	//Î²²å
 	d.push_back(10);
 	printDeque4(d);
+	//Í·²å
 	d.push_front(100);
 	printDeque4(d);
 
@@ -55,7 +56,7 @@ void test4_2() {
 	d2.insert(d2.begin(), d3.begin(), d3.end());
 	printDeque4(d2);
 }
-
+//É¾³ý
 void test4_3() {
 	deque<int> d2;
 	d2.push_back(10);

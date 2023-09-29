@@ -20,7 +20,7 @@ void printSet1(const set<int>& s) {
 }
 
 void test1_1() {
-
+	//默认构造
 	set<int> s;
 	s.insert(10);
 	s.insert(40);
@@ -29,10 +29,10 @@ void test1_1() {
 	s.insert(30);
 
 	printSet1(s);
-
+	//拷贝构造
 	set<int> s1(s);
 	printSet1(s1);
-
+	//赋值
 	set<int> s3;
 	s3 = s1;
 	printSet1(s3);

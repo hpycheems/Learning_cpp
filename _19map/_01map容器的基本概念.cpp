@@ -18,7 +18,9 @@ map和multimap区别：
 
 /*
 map构造和赋值：
-	
+	map<T> m;
+	map<T> m(map<T> & m)
+	map<T> & operator=(map<T> & m);
 */
 
 void test1_1() {

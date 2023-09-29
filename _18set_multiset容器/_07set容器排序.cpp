@@ -10,19 +10,21 @@ set容器默认排序规则为从小到大，掌握如何改变排序规则
 利用仿函数，可以改变排序规则
 */
 
+//仿函数
 class MyCompare1 {
 public:
 	bool operator()(int val1, int val2) const {
 		return val1 > val2;
 	}
 };
-
+//普通函数
 bool compareTest(const int val1, const int val2) {
 	return val1 > val2;
 }
 
 void test7_1() {
 
+	//在构造是传入 要实现的排序方式
 	set<int, MyCompare1> s;
 
 	s.insert(20);

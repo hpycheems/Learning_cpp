@@ -58,14 +58,13 @@ void test6_2() {
 	cout << "v1 的容量" << v1.capacity() << endl;
 	cout << "v1 的大小" << v1.size() << endl;
 
-
 	vector<int>(v1).swap(v1);//创建出来的临时对象会被系统自动回收
 	cout << "v1 的容量" << v1.capacity() << endl;
 	cout << "v1 的大小" << v1.size() << endl;
 
 }
 
-int main() {
+int main6() {
 
 	test6_2();
 

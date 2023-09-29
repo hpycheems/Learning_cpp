@@ -31,6 +31,7 @@ void test5_1() {
 	multiset<int> ms;
 	//允许插入重复元素
 	ms.insert(10);
+	//返回迭代器 指向插入的数据
 	multiset<int> :: iterator res1 = ms.insert(10);
 	cout << *res1 << endl;
 

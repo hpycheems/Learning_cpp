@@ -4,9 +4,9 @@ using namespace std;
 
 /*
 empty();
-capacity();
-size();
-resize(int num); 重置元素的大小
+capacity(); 容量
+size(); 容器中的元素个数
+resize(int num); 重置元素的个数
 resize(int num, elem);
 */
 
@@ -42,7 +42,7 @@ void test3_1() {
 
 }
 
-int main3() {
+int main() {
 
 	test3_1();
 

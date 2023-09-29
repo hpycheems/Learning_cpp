@@ -67,6 +67,7 @@ int main() {
 
 	srand((unsigned)time(0));
 
+	//创建选手
 	vector<Person> p;
 	createPerson(p);
 
@@ -75,8 +76,9 @@ int main() {
 	{
 		cout << "Name ： " << it->m_Name << " 分位数：" << it->m_Score << endl;
 	}*/
+	//打分
 	setScore(p);
-
+	//显示得分
 	showScore(p);
 
 	system("pause");

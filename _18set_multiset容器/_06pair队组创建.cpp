@@ -10,7 +10,7 @@ pair
 
 void test6_1() {
 	//方式一 创建对组
-	pair<string, int> p("Tom", 20);
+	pair<string, int> p("Tom", 20);//有参构造
 	cout << "姓名:" << p.first << "年龄:" << p.second << endl;
 
 	//方式二 创建队组

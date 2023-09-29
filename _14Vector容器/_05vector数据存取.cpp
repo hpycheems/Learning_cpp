@@ -16,12 +16,13 @@ void test5_1() {
 	{
 		v1.push_back(i);
 	}
+	//at
 	cout << v1.at(0) << endl;
-
+	//[]
 	cout << v1[1] << endl;
-
+	//front
 	cout << v1.front() << endl;
-
+	//back
 	cout << v1.back() << endl;
 
 
