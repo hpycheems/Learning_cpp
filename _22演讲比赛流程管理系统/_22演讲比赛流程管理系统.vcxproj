@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{93f3fcb2-2538-4e11-92b3-5560caa3c1eb}</ProjectGuid>
-    <RootNamespace>My21STL常用算法</RootNamespace>
+    <ProjectGuid>{68c8c9ac-50b1-45cb-aca0-c82c9cfd317c}</ProjectGuid>
+    <RootNamespace>My22演讲比赛流程管理系统</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,26 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="_01常用遍历算法.cpp" />
-    <ClCompile Include="_02常用查找算法find.cpp" />
-    <ClCompile Include="_03常用查找算法find_if.cpp" />
-    <ClCompile Include="_04常用查找算法adjacent_find.cpp" />
-    <ClCompile Include="_05常用查找算法binary_search.cpp" />
-    <ClCompile Include="_06常用查找算法count.cpp" />
-    <ClCompile Include="_07常用查找算法count_if.cpp" />
-    <ClCompile Include="_08常用排序算法sort.cpp" />
-    <ClCompile Include="_09常用排序算法random_shuffle.cpp" />
-    <ClCompile Include="_10常用排序算法merge.cpp" />
-    <ClCompile Include="_11常用排序算法reverse.cpp" />
-    <ClCompile Include="_12常用的拷贝和替换算法copy.cpp" />
-    <ClCompile Include="_13常用的拷贝和替换算法replace.cpp" />
-    <ClCompile Include="_14常用的拷贝和替换算法replace_if.cpp" />
-    <ClCompile Include="_15常用的拷贝和替换算法swap.cpp" />
-    <ClCompile Include="_16常用的算数生成算法accumulate.cpp" />
-    <ClCompile Include="_17常用的算数生成算法fill.cpp" />
-    <ClCompile Include="_18常用的集合算法算法set_intersection.cpp" />
-    <ClCompile Include="_19常用的集合算法算法set_union.cpp" />
-    <ClCompile Include="_20常用的集合算法算法set_difference.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Speaker.cpp" />
+    <ClCompile Include="SpeechManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Speaker.h" />
+    <ClInclude Include="SpeechManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

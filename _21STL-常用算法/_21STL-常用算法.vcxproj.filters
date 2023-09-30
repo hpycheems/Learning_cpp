@@ -60,7 +60,7 @@
     <ClCompile Include="_15常用的拷贝和替换算法swap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="_16常用的算数生成算法swap.cpp">
+    <ClCompile Include="_16常用的算数生成算法accumulate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="_17常用的算数生成算法fill.cpp">
