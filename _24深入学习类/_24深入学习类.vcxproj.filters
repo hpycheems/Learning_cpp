@@ -15,26 +15,43 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="_01多态的基本概念.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="_02多态案例.cpp">
+    <ClCompile Include="Person.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="_03纯虚函数和抽象类.cpp">
+    <ClCompile Include="Student.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="_04案例.cpp">
+    <ClCompile Include="Good.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="_05虚析构和纯虚析构.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_06案例.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_07纯虚函数.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Person.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Student.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Good.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="A.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="B.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="C.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="E.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

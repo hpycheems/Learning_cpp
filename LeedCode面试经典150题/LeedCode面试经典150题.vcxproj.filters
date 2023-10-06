@@ -15,25 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="_01多态的基本概念.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_02多态案例.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_03纯虚函数和抽象类.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_04案例.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_05虚析构和纯虚析构.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_06案例.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_07纯虚函数.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

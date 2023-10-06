@@ -31,7 +31,7 @@ void test4_1() {
 	Sum s;
 }
 
-int main4() {
+int main() {
 	test4_1();
 
 	system("pause");

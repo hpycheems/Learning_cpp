@@ -1,37 +1,4 @@
 ﻿D:\VSIDE\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: 中间目录(x64\Debug\)包含从另一个项目(c++Learning.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
-  swap.cpp
-  函数.cpp
-  函数的分文件编写.cpp
-  循环结构.cpp
-  指针.cpp
-  数据类型.cpp
-D:\work\C++Project\Learning_cpp\c++Learning\数据类型.cpp(51,17): warning C4305: “初始化”: 从“double”到“float”截断
-  数组.cpp
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(38,22): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(38,22): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(39,26): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(39,26): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(40,26): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(40,26): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(148,22): warning C4311: “类型强制转换”: 从“int (*)[3]”到“int”的指针截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(148,22): warning C4302: “类型强制转换”: 从“int (*)[3]”到“int”截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(149,25): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(149,25): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(150,31): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(150,31): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(151,25): warning C4311: “类型强制转换”: 从“int *”到“int”的指针截断
-D:\work\C++Project\Learning_cpp\c++Learning\数组.cpp(151,25): warning C4302: “类型强制转换”: 从“int *”到“int”截断
-  注释.cpp
-  first.cpp
-  关键字.cpp
-  变量.cpp
-  命令规则.cpp
-  常量.cpp
   结构体.cpp
-  结构体案例.cpp
-  跳转语句.cpp
-  选择结构.cpp
-  运算符.cpp
-  正在生成代码...
 MSVCRTD.lib(exe_main.obj) : error LNK2019: 无法解析的外部符号 main，函数 "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) 中引用了该符号
 D:\work\C++Project\Learning_cpp\x64\Debug\_01c++Learning.exe : fatal error LNK1120: 1 个无法解析的外部命令

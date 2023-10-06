@@ -9,13 +9,6 @@ int main() {
 	SpeechManager sm;
 	int chooce = -1;
 
-	//for (map<int,Speaker>::iterator it = sm.m_Speaker.begin(); it != sm.m_Speaker.end(); it++)
-	//{
-	//	cout << "选手编号：" << it->first << 
-	//		"选手名称：" << it->second.m_Name << 
-	//		"选手分数：" << it->second.m_Score[0] << endl;
-	//}
-
 	while (true) {
 		sm.show_Menu();
 		cout << "请输入您的选择:" << endl;

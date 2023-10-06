@@ -11,6 +11,7 @@ using namespace std;
 class Base {
 public:
 	virtual void func() = 0;
+	void fun1() {}
 };
 
 class Son :public Base {

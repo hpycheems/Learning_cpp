@@ -11,7 +11,7 @@ void func1(Person1<T1, T2> p) {
 
 template<class T1, class T2>
 class Person1{
-	//全局函数内类实现
+	//全局函数类内实现
 	friend void func(Person1<T1,T2> &p) {
 		cout << p.m_Name << " " << p.m_Age << endl;
 	}
