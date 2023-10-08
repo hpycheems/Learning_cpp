@@ -7,6 +7,7 @@ using namespace std;
 #include <functional>
 #include <future>
 #include <string.h>
+#include <memory>
 
 /*
 explicit 关键字
@@ -492,7 +493,146 @@ void func1() {
 #pragma endregion
 
 
+class Base {
+public:
+	virtual void func() {}
+protected:
+	~Base() {}
+};
+class Dertived : Base{
+public:
+	Dertived() { cout << "Dertived 的构造" << endl; }
+	~Dertived() { cout << "Dertived 的析构" << endl; }
+	void func() override {
+		cout << "sun func " << "\n";
+	}
+};
+void BaseTest(Base& b) {
+	b.func();
+}
+void BaseTest() {
+	Dertived d;
+}
+
+class Parent_1;
+typedef shared_ptr<Parent_1> ParentPtr;
+class Child {
+public:
+	ParentPtr father;
+	~Child();
+	Child();
+};
+typedef shared_ptr<Child> ChildPtr;
+class Parent_1 {
+public:
+	ChildPtr son;
+	~Parent_1();
+	Parent_1();
+};
+Parent_1::Parent_1() { cout << "hello Parent" << "\n"; }
+Child::Child() { cout << "Hello Child" << "\n"; }
+Parent_1::~Parent_1() { cout << "bey Parent" << "\n"; }
+Child::~Child() { cout << "bey Child" << "\n"; }
+void testParentAndChild() {
+	ParentPtr p(new Parent_1);
+	ChildPtr c(new Child);
+	p->son = c;
+	c->father = p;
+}
+typedef unique_ptr<Parent_1> uniquePtr;
+void sharedPtrWithWealPtr() {
+
+	//ParentPtr obj(new Parent_1);//此时shared_ptr管理着一份资源
+	//typedef weak_ptr<Parent_1> WeakParendPtr;
+	//WeakParendPtr weakObj(obj);//此时 weakPtr指向obj
+	//ParentPtr obj1(obj);
+	//ParentPtr obj2 = obj;
+	//obj.reset();
+	//auto p = weakObj.lock();
+	//if (p) {
+	//	cout << "use count is" << p.use_count() << endl;
+	//}
+	//else {
+	//	cout << "resource not person manager" << endl;
+	//}
+	//cout << "use count is" << obj1.use_count() << " " << obj2.use_count() << "\n";
+
+
+	uniquePtr uniqueP(new Parent_1);// = make_shared<Parent_1>(); 这样会报错
+
+	//auto uniaueP2 = uniqueP.release();
+
+	//cout << typeid(uniaueP2).name() << endl;
+
+	ParentPtr sharedP = move(uniqueP);
+
+	//typedef weak_ptr<Parent_1> WeakParendPtr;
+	//WeakParendPtr weakObj(obj);//此时 weakPtr指向obj
+	//cout << "obj use count is" << obj.use_count() << "\n"; //此时输出的obj的use_count()为1
+	//
+	//{
+	//	auto p = weakObj.lock();
+	//	if (p) {
+	//		//当p为有效的指针时 obj占一份，p占一份
+	//		cout << "obj use count is" << obj.use_count() << "\n"; //2
+	//	}
+	//	else {
+
+	//	}
+	//}
+	//cout << "obj use count is" << obj.use_count() << "\n"; //1
+	//ParentPtr obj2 = obj;
+	//WeakParendPtr weakobj2 = obj2;
+	//cout << "obj use count is" << obj.use_count() << "\n"; //2
+	////obj2.reset();
+	////cout << "obj use count is" << obj.use_count() << "\n"; //1
+	//obj.reset();//此时，obj不在管理， weakobj也会失效  use_count = 0 也就是说obj
+	//cout << "obj use count is" << obj.use_count() << "\n"; //0
+	//if (weakObj.expired()) {
+	//	cout << "obj use count is" << obj.use_count() << "\n";
+	//}
+	//else {
+	//	cout << "weakobj 失效" << endl;
+	//}
+	//obj.reset(new Parent_1);//此时 同样失效
+	//weakObj = obj;//重新赋值后 继续生效
+}
+
+
+//class AdvenceParent {
+//public:
+//	int id();
+//	AdvenceParent();
+//	~AdvenceParent();
+//};
+
+class AdbenceChild {
+public:
+	int id();
+	AdbenceChild();
+	~AdbenceChild();
+};
+typedef shared_ptr<AdbenceChild> advenceChild_ptr;
+int AdbenceChild::id() {
+	return 1;
+}
+AdbenceChild::AdbenceChild() { cout << "hello child\n"; }
+AdbenceChild::~AdbenceChild() { cout << "bey child\n"; }
+void Test_2() {
+	advenceChild_ptr obj = make_shared<AdbenceChild>();
+	advenceChild_ptr obj2 = obj;
+	obj.reset();
+	if (obj2) {
+		cout << obj2->id() << endl;
+	}
+}
+
 int main() {
+	//testParentAndChild();
+	sharedPtrWithWealPtr();
+	//Test_2();
+	//BaseTest();
+	//BaseTest(d);
 	//NewFunction01();
 	
 	//vector<int> v;
@@ -546,7 +686,7 @@ int main() {
 	//char arr[] = "Hello World!";
 	//changeStrs(arr);
 
-	func1();
+	//func1();
 
 	system("pause");
 	return 0;

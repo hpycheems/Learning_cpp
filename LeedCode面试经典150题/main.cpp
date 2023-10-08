@@ -1,9 +1,18 @@
 #include <iostream>
 using namespace std;
+#include <map>
+#include <algorithm>
 #include <vector>
 #include<algorithm>
 #include <functional>
 #include <string>
+
+void printVector(const vector<int>& v) {
+	for (auto val : v) {
+		cout << val << " ";
+	}
+	cout << "\n";
+}
 
 #pragma region 合并两个有序数组
 class Solution1 {
@@ -179,8 +188,63 @@ int removeDuplicatesl(vector<int>& nums) {
 }
 #pragma endregion
 
+#pragma region 多个元素
+
+int majorityElement(vector<int>& nums) {
+	if (nums.size() < 2) {
+		return nums[0];
+	}
+	sort(nums.begin(), nums.end());
+	int result = 0;
+	int count = 0;
+	for (int i = 1; i < nums.size(); i++)
+	{
+		if (nums[i] == nums[i - 1]) {
+			count++;
+		}
+		if (count >= nums.size() / 2) {
+			result = nums[i];
+			count = 0;
+		}
+	}
+	return result;
+
+	//
+	sort(nums.begin(), nums.end());
+	return nums[nums.size() / 2];
+}
+
+#pragma endregion
+
+#pragma region 轮转数组
+void rotate_(vector<int>& nums, int k) {
+	//自己 Leedcode不能用rotate
+	int pos = nums.size() - k % nums.size();
+	if (pos == 0) {
+		return;
+	}
+	rotate(nums.begin(), nums.begin() + pos, nums.end());
+
+	// 
+	//官方
+	int n = nums.size();
+	vector<int> newV(n);
+	for (int i = 0; i < n; i++)
+	{
+		newV[(i + k) % n] = nums[i];
+	}
+	nums.assign(newV.begin(), newV.end());
+}
+#pragma endregion
+
+
 int main() {
-	test_2();
+	//test_2();
+
+	vector<int> v = { -1,-100,3,99 };
+	rotate_(v, 6);
+	printVector(v);
+	//cout <<  << "\n";
 	system("pause");
 	return 0;
 }

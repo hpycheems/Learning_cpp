@@ -4,7 +4,9 @@ using namespace std;
 #include<vector>
 #include<map>
 #include <string>
+#include <memory>
 #include "Good.h"
+#include <assert.h>
 
 #pragma region 前置声明
 //前置声明 不完整类型
@@ -129,7 +131,7 @@ private:
 
 #pragma endregion
 
-#pragma region 构造函数，可以在构造函数中抛出异常
+#pragma region 构造函数，构造错误时 可以在构造函数中抛出异常
 //swpa 这类函数不要抛出异常
 class GoodB {
 public:
@@ -142,8 +144,10 @@ private:
 #pragma endregion
 
 
-#pragma region 多态
+#pragma region 多态 虚函数 虚析构函数
 //当虚函数是外部可以访问到的，可以定义为virtual
+// 在构造函数和析构函数中调用虚函数时，不会存在多态的作用
+// 类在构造过程中，并没有生成出来
 class Event;
 class Base {
 	virtual ~Base() {}
@@ -186,7 +190,6 @@ void test_01() {
 
 	//它会判断是否可转换
 	Grouped* gg = dynamic_cast<Grouped*>(baseGroup);
-
 }
 
 #pragma endregion
@@ -284,7 +287,7 @@ private:
 
 
 static void newVersionConstruct() {
-	//行版本数组的声明方式
+	//新版本数组的声明方式
 	int avector[] = { 1,2,3 };
 	vector<int> v = { 1,2,3 };
 
@@ -328,7 +331,322 @@ static void leftRefAndRightRef() {
 
 #pragma endregion
 
+#pragma region C++11 内存管理的改进
 
+void versionOne() {
+	//C
+	int* ageC = (int*)malloc(sizeof(int));
+	if (ageC) {
+
+	}
+	free(ageC);
+
+	//C++
+	int* age = new int(20);//分配资源，分配空间  调用构造函数
+	int* height = new int(130);
+	cout << age << " " << height << " " << "\n";
+	//在类中 可以通过 构造和析构 来解决内存开辟和释放
+	delete age;
+	delete height;
+}
+//解决内存泄露问题  智能指针
+//4种智能指针 都在头文件 memory
+//auto_ptr 不使用
+//shared_ptr 
+class SharedPtrObject {
+public:
+	SharedPtrObject(int id) :m_id(id) { cout << "init obj" << m_id << endl; }
+	~SharedPtrObject() { cout << "bye bye " << m_id << endl; }
+	int id()const { return m_id; }
+private:
+	int m_id;
+};
+//智能指针
+typedef shared_ptr<SharedPtrObject> ObjectPtr;
+
+void print(ObjectPtr obj);
+void printRef(ObjectPtr& obj);
+void print(const SharedPtrObject& obj);
+void interfaceOfSharedPtr() {
+	ObjectPtr null;//裸指针
+	cout << "ref count is " << null.use_count() << endl; // 0
+	ObjectPtr obj(new SharedPtrObject(1));
+	cout << "ref count is " << obj.use_count() << endl; // 1
+	ObjectPtr obj2(obj);
+	cout << "ref count is" << obj.use_count() << endl;//2
+	cout << "ref count obj2 is" << obj2.use_count() << endl;//2
+	ObjectPtr obj3 = obj;
+	cout << "ref count is" << obj.use_count() << endl;//3
+	//移除
+	obj2.reset();// 也可 obj2 = nullptr;
+	cout << "ref count is" << obj.use_count() << endl;//2
+
+	ObjectPtr obj4;
+	obj3.swap(obj4);
+	swap(obj3, obj4);//交换
+	cout << "ref count is" << obj.use_count() << endl;//2
+
+	//使用
+	auto p = obj.get();
+	if (p) {
+		cout << "id is" << p->id() << endl;
+	}
+	//建议这样使用
+	if (obj) {
+		cout << "id is" << (*obj).id() << endl;// operator*
+		cout << "id is" << obj->id() << endl;// operatro->
+	}
+
+	obj4 = nullptr;
+	//if(obj.unique())
+	//if(obj.use_count() == 1)
+	//判断是否只存在一人在使用
+	cout << "only one hold ptr" << obj.unique() << endl;
+
+	//作为参数 作为值（在多线程中用）， 作为引用
+	print(obj);
+	printRef(obj);
+	print(*obj);
+}
+void print(ObjectPtr obj) {
+	cout << "count " << obj.use_count() << endl;//引用次数加1 为3
+}
+void printRef(const ObjectPtr& obj) {//以Obj本身作为参数
+	cout << "count" << obj.use_count() << endl;
+}
+void print(const SharedPtrObject& obj) {//通过引用传入的 不会发生变化
+	
+}
+void deleteOfObject(SharedPtrObject* obj) {
+	if (obj)
+		cout << "delete obj" << endl;
+
+	delete obj;
+}
+//智能指针构造是 还可以传入一个参数（方法）来释放内存
+void useDeleter() {
+	ObjectPtr obj(new SharedPtrObject(2), deleteOfObject);
+}
+
+//使用智能指针出现的问题
+class Parent_1;
+typedef shared_ptr<Parent_1> ParentPtr;
+typedef weak_ptr<Parent_1> weakParetPtr;
+class Child {
+public:
+	weakParetPtr father;//把ParentPtr换成weakParetPtr 来打破循环
+	~Child();
+	Child();
+};
+typedef shared_ptr<Child> ChildPtr;
+typedef weak_ptr<Child> weakChildPtr;
+class Parent_1 {
+public:
+	ChildPtr son;
+	~Parent_1();
+	Parent_1();
+};
+Parent_1::Parent_1() { cout << "hello Parent" << "\n"; }
+Child::Child() { cout << "Hello Child" << "\n";}
+Parent_1::~Parent_1() { cout << "bey Parent" << "\n"; }
+Child::~Child() { cout << "bey Child" << "\n"; }
+void testParentAndChild() {
+	ParentPtr p(new Parent_1());//彼此间相互引用智能指针时的问题
+	ChildPtr c(new Child());//智能指针析构时 只是 use_count() - 1
+	p->son = c;//c->use_count() = 2 and p->use_count() = 1
+	c->father = p;//p->use_count() = 2 and c->use_count() = 2
+}//此时 智能指针 管理的内存不会释放即， new出来的对象的析构函数不会被调用
+
+//成员函数调用 自身智能指针时 的问题
+// 问题解决 派生自 enable_shared_from_this<自己>
+class Parent_2;
+typedef shared_ptr<Parent_2> parend_2Ptr;
+typedef weak_ptr<Parent_2> weakParend_2Ptr;
+class Child_2{
+public:
+	weakParend_2Ptr father;
+	Child_2();
+	~Child_2();
+	void checkRelation();
+	int id();
+
+};
+typedef shared_ptr<Child_2> child_2Ptr;
+typedef weak_ptr<Child_2> weakChild_2Ptr;
+class Parent_2 : public enable_shared_from_this<Parent_2>{
+public:
+	weakChild_2Ptr son;
+	Parent_2();
+	~Parent_2();
+	void checkRelation();
+};
+
+void handleChildAndPraentRef(const parend_2Ptr& p, const child_2Ptr& s){
+	
+}
+Child_2::Child_2() { cout << "hello child\n"; }
+Child_2::~Child_2() { cout << "bey child\n"; }
+Parent_2::Parent_2() { cout << "hello parent\n"; }
+Parent_2::~Parent_2() { cout << "bey parent\n"; }
+void Parent_2::checkRelation() {
+	auto ps = this->son.lock();
+	if (ps) {
+
+		//伪造自身智能指针
+		//parend_2Ptr p(this);
+		//当派生自 enable_shared_from_this<>时
+		handleChildAndPraentRef(shared_from_this(), ps);//此时会出错
+	}//构造一个parent 析构两个 parent
+}
+//weaked_prt 打破shared_ptr的循环引用 
+//当shared_ptr的资源还有人在管理的时候，weak_ptr不会失效
+void sharedPtrWithWealPtr() {
+
+	ParentPtr obj(new Parent_1);//此时shared_ptr管理着一份资源
+	typedef weak_ptr<Parent_1> WeakParendPtr;
+	WeakParendPtr weakObj(obj);//此时 weakPtr指向obj
+	cout << "obj use count is" << obj.use_count() << "\n"; //此时输出的obj的use_count()为1
+	{
+		auto p = weakObj.lock();
+		if (p) {
+			//当p为有效的指针时 obj占一份，p占一份
+			cout << "obj use count is" << obj.use_count() << "\n"; //2
+		}
+		else {
+
+		}
+	}
+	obj.reset();//此时，obj不在管理， weakobj也会失效
+	obj.reset(new Parent_1);//此时 同样失效
+	weakObj = obj;//重新赋值后 继续生效
+	//判读wealptr是否有效
+	if (weakObj.expired()) {
+		cout << "有效" << endl;
+	}
+	else {
+		cout << "无效" << endl;
+	}
+}
+
+//unique_ptr
+//用法
+void print(const UniqueChild_2Ptr& obj);
+void transfer(UniqueChild_2Ptr obj);
+typedef unique_ptr<Child_2> UniqueChild_2Ptr;
+void uniquePtr() {
+
+	UniqueChild_2Ptr obj(new Child_2);
+	auto p = obj.get();
+	if (p) {
+
+	}
+
+	//beter
+	if (obj) {
+
+	}
+
+	//opterator -> *
+	cout << p->id() << obj->id() << (*obj).id() << "\n";
+	print(obj);//某一时间 由uniqueptr管理的资源只能有一个在使用
+	p = obj.release();//释放 uniqueptr
+	delete p;
+
+	obj.reset();//delete管理的指针
+	obj.reset(new Child_2);//释放原理的指针 并管理新建的指针
+	//
+	transfer(move(obj));
+	cout << obj->id() << "\n";//此时obj是无效的
+
+	// 从uniqueptr 转移到 shared_ptr
+	obj.reset(new Child_2);
+	child_2Ptr sharedPtr(move(obj));
+	assert(obj == nullptr);
+}
+void print(const UniqueChild_2Ptr& obj) {}
+void transfer(UniqueChild_2Ptr obj){
+	cout << obj->id() << endl;
+}
+
+#pragma endregion
+
+
+#pragma region 智能指针的坑
+
+void sharedPtrNotice() {
+
+	//前提：绝对不要自己手动的管理资源
+	int* a = new int(10);
+	delete a;
+	int* b = (int*)malloc(sizeof(int));
+	if (b) {
+		free(b);
+	}
+
+	//一个裸的指针不要用两个shaded_ptr管理，unique_ptr
+	auto pObj = new Child_2();
+	child_2Ptr obj(pObj);
+	child_2Ptr obj2(pObj);
+
+	//用 weak_ptr打破循环引用，parrent 和child
+	//当需要再类的内部接口中，如果需要将this作为智能指针来使用的话，
+	//需要用该类派生自enable_shared_form_this
+
+	//使用shared_ptr作为函数的接口，如果有可能 用const shared_ptr&的形式
+	//多线程模式下使用shared_prt需要注意的事项(多线程编程的时候)
+
+	//shared_ptr weak_ptr 和裸指针相比， 会大很多，并且效率上会有影响。尤其是在多线程模式下
+	child_2Ptr obj3(new Child_2);//这样会调用两次构造函数
+	child_2Ptr obj4 = obj3;
+
+	//应该使用这种方式创建智能指针
+	child_2Ptr obj5 = make_shared<Child_2>();
+
+	//enable_shared_form_this shared_from_this()和构造析构函数一样，某些情况下是不能使用的，
+	// 例如在构造析构函数下是不能使用的
+
+	//某些情况下，会出现内存不会降的问题，尤其是使用weak_ptr来处理循环引用的问题(weak_ptr 勾着)
+
+	//如果有可能，优先使用类的实例，其次万不得已使用unique_ptr,
+	//万不得已使用shared_ptr;
+}
+
+#pragma endregion
+
+#pragma region Lambda
+//将一个inline函数 作为参数 local对象
+
+//作为参数
+template<class Func>
+void printUseFunc(Func func, int a, int c, int b) {
+	func(a, b, c);
+}
+void LambdaTest() {
+
+	auto local = [](int a, int b, int c) {
+		cout << "a =" << a << "b =" << b << "c = " << c << "\n";
+	};
+	auto local1 = []{cout << "hello Lambda\n";  };
+	//作为参数
+	printUseFunc([](int a, int b, int c) {
+		cout << "a =" << a << "b =" << b << "c = " << c << "\n";
+		}, 1, 2, 3);
+
+	int a = 10;
+	int b = 20;
+	int c = 30;
+	auto local2 = [=]() {};
+	//需要调用才可执行此函数
+	local2();//此时传入任何参数都会以拷贝的形式 拷贝一份来使用
+	auto local3 = [&]() {};
+	local3();//此时传入任何参数都会以传参的形式传递
+	auto local4 = [a, b, c]() {};
+	local4();//此时是拷贝的形式
+	auto local5 = [&a, &b, &c]() {};
+	local5();//此时是引用传递
+
+}
+#pragma endregion
 
 int main() {
 
