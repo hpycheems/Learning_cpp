@@ -2,7 +2,7 @@
 using namespace std;
 #include <vector>
 #include <algorithm>
-
+#include <assert.h>
 
 void printVector(const vector<int>& v) {
 
@@ -59,7 +59,6 @@ void BubbleSort2(vector<int>& nums) {
 	}
 }
 #pragma endregion
-
 
 #pragma region 简单选择排序 O(n^2)但要优于冒泡
 void SelectSort(vector<int>& nums) {
@@ -124,25 +123,64 @@ void ShellSort(vector<int>& nums) {
 }
 #pragma endregion
 
+#pragma region 推排序
+void Swap(int& a, int& b) {
+	int temp = a;
+	a = b;
+	b = temp;
+}
+void HeapAdjust(vector<int>& nums, int s, int m) {
+
+	int temp = nums[s];
+	
+	for (int j = s * 2; j <= m; j = j * 2)
+	{
+		if(j < m && nums[j] < nums[j + 1]){
+			j++;
+		}
+		if (temp >= nums[j]) {
+			break;
+		}
+		nums[s] = nums[j];
+		s = j;
+	}
+	nums[s] = temp;
+}
+void HeapSort(vector<int>& nums) {
+	for (int i = (nums.size() - 1) / 2; i > 0; i--)
+	{
+		HeapAdjust(nums, i, nums.size() - 1);
+	}
+
+	for (int i = nums.size() - 1; i > 1; i--)
+	{
+		Swap(nums[1], nums[i]);
+		HeapAdjust(nums, 1, i - 1);
+	}
+}
+#pragma endregion
+
+
 int main() {
 
-	vector<int> v;
-	v.push_back(0);
-	v.push_back(9);
-	v.push_back(1);
-	v.push_back(5);
-	v.push_back(8);
-	v.push_back(3);
-	v.push_back(7);
-	v.push_back(4);
-	v.push_back(6);
-	v.push_back(2);
+	vector<int> v = {0, 50, 10, 90,30,70, 40,80 ,60, 20 };
+	//v.push_back(0);
+	//v.push_back(9);
+	//v.push_back(1);
+	//v.push_back(5);
+	//v.push_back(8);
+	//v.push_back(3);
+	//v.push_back(7);
+	//v.push_back(4);
+	//v.push_back(6);
+	//v.push_back(2);
+
 
 	//BubbleSort2(v);
 	//printVector(v);
 	//SelectSort(v);
 	//InserSlot(v);
-	ShellSort(v);
+	HeapSort(v);
 	
 	printVector(v);
 	system("pause");

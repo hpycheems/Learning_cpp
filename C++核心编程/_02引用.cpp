@@ -40,7 +40,7 @@ void shpwValue(const int &val){
 // 给变量起别名
 // 语法： 数据类型 &别名 = 原名
 
-int main() {
+int main2() {
 
 // 基本用法
 	int a = 10;

@@ -4,7 +4,7 @@ using namespace std;
 
 /*
 size()返回容器中元素个数
-emptu() 判断容器是否为空
+empty() 判断容器是否为空
 swap(st) 交换两个集合容器
 */
 

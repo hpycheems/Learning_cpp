@@ -8,6 +8,7 @@ using namespace std;
 #include <future>
 #include <string.h>
 #include <memory>
+#include <fstream>
 
 /*
 explicit 关键字
@@ -627,9 +628,55 @@ void Test_2() {
 	}
 }
 
+
+#pragma region log文件写入
+
+class Log {
+public:
+	Log(int id, std::string fileName) :m_id(id) { m_f.open("log.log", ios::out); }
+	~Log() {}
+	void log(const std::string& info) {
+		std::cout << info;
+		m_f << info;
+	}
+private:
+	int m_id;
+	std::fstream m_f;
+};
+
+static Log a(1, "log.log");
+void logTest1() {
+	a.log("hello ");
+}
+void logTest2() {
+	a.log("world");
+}
+//answer
+// hello //出现的原因：刚开始，构造出来的对象 打开的文件都只是指向文件的头部，只有在析构时才写入数据
+// world //当输入文件后调用 flush()时，这时会写入文件
+// hello world 把 static Log 从函数中提提取出来
+// worldhello
+#pragma endregion
+
+
+class Lock {
+public:
+	Lock() { std::cout << "hello Lock\n"; }
+	~Lock() { std::cout << "bey Lockn\n"; }
+};
+
+void LockFunc() {
+	Lock a;
+	throw 1;//即使抛出异常，也会调用 析构
+}
+
 int main() {
+	LockFunc();
+	//logTest1();
+	//logTest2();
+
 	//testParentAndChild();
-	sharedPtrWithWealPtr();
+	//sharedPtrWithWealPtr();
 	//Test_2();
 	//BaseTest();
 	//BaseTest(d);

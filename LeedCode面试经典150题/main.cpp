@@ -31,6 +31,7 @@ public:
 			cout << *it << " ";
 		}
 		cout << endl;*/
+
 		int i = nums1.size() - 1;
 		m--;
 		n--;
@@ -41,6 +42,8 @@ public:
 			}
 			swap(nums1[i--], nums2[n--]);
 		}
+
+		//merge(nums1, m - nums2.size(), nums2, nums2.size());
 	}
 };
 void test_1() {
@@ -188,7 +191,7 @@ int removeDuplicatesl(vector<int>& nums) {
 }
 #pragma endregion
 
-#pragma region 多个元素
+#pragma region 多数元素
 
 int majorityElement(vector<int>& nums) {
 	if (nums.size() < 2) {
@@ -237,13 +240,60 @@ void rotate_(vector<int>& nums, int k) {
 }
 #pragma endregion
 
+#pragma region 买股票的最佳时机
+int maxProfit(vector<int>& prices) {
+	int length = prices.size();
+	int result = 0;
+	for (int i = length - 1; i >= 0; i--)
+	{
+		for (int j = i; j >= 0; j--)
+		{
+			if (result < prices[i] - prices[j]) {
+				result = prices[i] - prices[j];
+			}
+		}
+	}
+	return result;
+
+	//记录最最小的
+	int inf = 1e9;
+	int minprice = inf, maxprofit = 0;
+	for (int price : prices) {
+		maxprofit = max(maxprofit, price - minprice);
+		minprice = min(price, minprice);
+	}
+	return maxprofit;
+}
+#pragma endregion
+
+#pragma region 买股票的最佳时机II
+int maxProfit_(vector<int>& prices) {
+	//贪心
+	int anx = 0;
+	int n = prices.size();
+	for (int i = 1; i < n; i++)
+	{
+		anx += max(0, prices[i] - prices[i - 1]);
+	}
+	return anx;
+}
+#pragma endregion
+
+
 
 int main() {
 	//test_2();
+	Solution1 p;
+	vector<int> a = { 1,3,5,7 };
+	vector<int> aa = { 2,4,6,8 };
+	p.merge(a, 8, aa, 4);
 
-	vector<int> v = { -1,-100,3,99 };
+	/*vector<int> v = { -1,-100,3,99 };
 	rotate_(v, 6);
 	printVector(v);
+
+	vector<int> v1 = { 7,6,4,3,1 };
+	cout <<  maxProfit(v1) << endl;*/
 	//cout <<  << "\n";
 	system("pause");
 	return 0;

@@ -457,6 +457,37 @@ void testParentAndChild() {
 	c->father = p;//p->use_count() = 2 and c->use_count() = 2
 }//此时 智能指针 管理的内存不会释放即， new出来的对象的析构函数不会被调用
 
+//weaked_prt 打破shared_ptr的循环引用 
+//当shared_ptr的资源还有人在管理的时候，weak_ptr不会失效
+void sharedPtrWithWealPtr() {
+
+	ParentPtr obj(new Parent_1);//此时shared_ptr管理着一份资源
+	typedef weak_ptr<Parent_1> WeakParendPtr;
+	WeakParendPtr weakObj(obj);//此时 weakPtr指向obj
+	cout << "obj use count is" << obj.use_count() << "\n"; //此时输出的obj的use_count()为1
+	{
+		auto p = weakObj.lock();
+		if (p) {
+			//当p为有效的指针时 obj占一份，p占一份
+			cout << "obj use count is" << obj.use_count() << "\n"; //2
+		}
+		else {
+
+		}
+	}
+	obj.reset();//此时，obj不在管理， weakobj也会失效
+	obj.reset(new Parent_1);//此时 同样失效
+	weakObj = obj;//重新赋值后 继续生效
+	//判读wealptr是否有效
+	if (weakObj.expired()) {
+		cout << "有效" << endl;
+	}
+	else {
+		cout << "无效" << endl;
+	}
+}
+
+
 //成员函数调用 自身智能指针时 的问题
 // 问题解决 派生自 enable_shared_from_this<自己>
 class Parent_2;
@@ -498,35 +529,7 @@ void Parent_2::checkRelation() {
 		handleChildAndPraentRef(shared_from_this(), ps);//此时会出错
 	}//构造一个parent 析构两个 parent
 }
-//weaked_prt 打破shared_ptr的循环引用 
-//当shared_ptr的资源还有人在管理的时候，weak_ptr不会失效
-void sharedPtrWithWealPtr() {
 
-	ParentPtr obj(new Parent_1);//此时shared_ptr管理着一份资源
-	typedef weak_ptr<Parent_1> WeakParendPtr;
-	WeakParendPtr weakObj(obj);//此时 weakPtr指向obj
-	cout << "obj use count is" << obj.use_count() << "\n"; //此时输出的obj的use_count()为1
-	{
-		auto p = weakObj.lock();
-		if (p) {
-			//当p为有效的指针时 obj占一份，p占一份
-			cout << "obj use count is" << obj.use_count() << "\n"; //2
-		}
-		else {
-
-		}
-	}
-	obj.reset();//此时，obj不在管理， weakobj也会失效
-	obj.reset(new Parent_1);//此时 同样失效
-	weakObj = obj;//重新赋值后 继续生效
-	//判读wealptr是否有效
-	if (weakObj.expired()) {
-		cout << "有效" << endl;
-	}
-	else {
-		cout << "无效" << endl;
-	}
-}
 
 //unique_ptr
 //用法
@@ -570,7 +573,6 @@ void transfer(UniqueChild_2Ptr obj){
 
 #pragma endregion
 
-
 #pragma region 智能指针的坑
 
 void sharedPtrNotice() {
@@ -588,8 +590,8 @@ void sharedPtrNotice() {
 	child_2Ptr obj(pObj);
 	child_2Ptr obj2(pObj);
 
-	//用 weak_ptr打破循环引用，parrent 和child
-	//当需要再类的内部接口中，如果需要将this作为智能指针来使用的话，
+	//用 weak_ptr打破循环引用
+	//当需要在类的内部接口中，如果需要将this作为智能指针来使用的话，
 	//需要用该类派生自enable_shared_form_this
 
 	//使用shared_ptr作为函数的接口，如果有可能 用const shared_ptr&的形式
