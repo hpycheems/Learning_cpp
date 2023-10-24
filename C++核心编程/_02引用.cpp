@@ -57,9 +57,10 @@ int main2() {
 	cout << a << endl;
 	cout << numbera << endl;
 	cout << c << endl;
+	//cout << *numbera << endl;
 
 //引用作函数参数
-	//函数传参时，可以利用引用技术让形参修饰实参
+	//函数传参时，可以利用引用技术让形参修改实参
 	// 优点：可以简化指针修改
 	cout << "++++++++++" << endl;
 	int num1 = 10;

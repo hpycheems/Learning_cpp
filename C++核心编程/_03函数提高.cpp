@@ -54,7 +54,7 @@ void func5(double a, float b) {
 	cout << "func5(double a, float b) 调用" << a << endl;
 }
 	//注意事项：引用作为重载条件
-	//			函数重载碰到默认参数
+	//			函数重载碰到默认参数 出现二义性 
 void func6(int& a) {
 	cout << "func(int &a)调用" << endl;
 }

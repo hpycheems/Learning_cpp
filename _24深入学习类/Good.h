@@ -8,8 +8,8 @@ using namespace std;
 //class B;
 #include "B.h"
 
-//class C;
-#include "C.h"
+class C;
+//#include "C.h"
 
 //class D;
 #include "D.h"

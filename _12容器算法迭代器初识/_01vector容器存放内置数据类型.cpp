@@ -21,7 +21,7 @@ int main1() {
 	//vector<int>::iterator vEnd = v.end();//返回迭代器 这个迭代器指向容器的最后一个元素的下一个位置
 	//vector<int>::iterator 拿到vector<int>这种类型的迭代器
 	
-	//第一种变量方法
+	//第一种遍历方法
 	//while (vBegin != vEnd) {
 	//	cout << *vBegin << endl;
 	//	vBegin++;

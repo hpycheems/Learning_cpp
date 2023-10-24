@@ -184,6 +184,7 @@ void vectorPart() {
 	b.clear();// 清空容器， 但它的capacity不会降低
 	b.shrink_to_fit();//告诉容器，你可以降低capacity了 C++11
 
+	//std::remove(b.begin(), b.end(), 1);
 	//和c的接口互用
 	//vector<char> carr(100, 0);
 	//strcpy(carr.data(), "hello world");
@@ -198,7 +199,6 @@ void vectorPart() {
 
 	//绝对不要用 vector存bool remenber
 }
-
 
 void dequePart() {
 	/*
@@ -686,6 +686,7 @@ void mapPart() {
 
 	}
 }
+
 void unorderSetAndMap() {
 	/*
 		unordermulti_set unorder_set
@@ -721,19 +722,26 @@ void unorderSetAndMap() {
 
 int main() {
 	//serPart();
-	set<int> s{2,3,1,4};
-	for (set<int>::iterator it = s.begin(); it != s.end(); it++)
-	{
-		cout << *it << " ";
+	//set<int> s{2,3,1,4};
+	//for (set<int>::iterator it = s.begin(); it != s.end(); it++)
+	//{
+	//	cout << *it << " ";
+	//}
+	//cout << "\n";
+	//auto itre = s.lower_bound(3);//返回的是要插入位置的迭代器
+	//for (set<int>::iterator it = s.begin(); it != s.end(); it++)
+	//{
+	//	cout << *it << " ";
+	//}
+	//cout << "\n";
+	//cout << *itre << endl;
+
+	vector<int> v = { 1,2,2,3,4,4,5,6,7,8,8 };
+	std::remove(v.begin(), v.end(), 4);
+	for (auto value : v) {
+		std::cout << value << " ";
 	}
-	cout << "\n";
-	auto itre = s.lower_bound(3);//返回的是要插入位置的迭代器
-	for (set<int>::iterator it = s.begin(); it != s.end(); it++)
-	{
-		cout << *it << " ";
-	}
-	cout << "\n";
-	cout << *itre << endl;
+
 
 	//STL是一个框架，将数据结构和算法进一步抽象。
 	//容器、算法、迭代器

@@ -20,7 +20,22 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
+    <ClInclude Include="A.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="B.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="C.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="E.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Good.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

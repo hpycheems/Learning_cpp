@@ -44,7 +44,7 @@ void test2_1() {
 	cout << "s7 = " << s7 << endl;
 }
 
-int main2() {
+int main() {
 
 	test2_1();
 

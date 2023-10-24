@@ -11,9 +11,9 @@ using namespace std;
 #pragma region 前置声明
 //前置声明 不完整类型
 // 在头文件中， 尽可能少的引用头文件 Parent Child类例子
-// 当存在继承的时候，继承的别的头文件是需要包含进来的 不能使用前置声明
+// 当存在继承的时候，继承的父类的头文件是需要包含进来的 不能使用前置声明
 // 当别的类作为该类的成员 非指针或引用 ，也需要把头文件包含进来
-// 当另外类的类型是成员容器的类型 则也是需要包含 
+// 当另外类的类型是成员容器的类型 则也是需要包含 ??
 
 // 在作为返回值和形参时是不需要要包含头文件的
 class RuleOfFive;
@@ -387,7 +387,7 @@ void interfaceOfSharedPtr() {
 	cout << "ref count is" << obj.use_count() << endl;//2
 
 	//使用
-	auto p = obj.get();
+	auto p = obj.get();//返回管理对象的指针
 	if (p) {
 		cout << "id is" << p->id() << endl;
 	}
@@ -637,7 +637,7 @@ void LambdaTest() {
 	int a = 10;
 	int b = 20;
 	int c = 30;
-	auto local2 = [=]() {};
+	auto local2 = [=]() {}; //传入的参数都是以拷贝传入
 	//需要调用才可执行此函数
 	local2();//此时传入任何参数都会以拷贝的形式 拷贝一份来使用
 	auto local3 = [&]() {};

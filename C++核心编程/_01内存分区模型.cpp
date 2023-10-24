@@ -98,7 +98,7 @@ int main(){
 	//const修饰的全局变量（全局常量），const修饰的局部变量（局部常量）
 	const int c_a = 10;
 	const int c_b = 10;
-
+	//局部常量存放在栈区
 	cout << "局部常量c_a常量地址:" << (int)&c_a << endl;
 	cout << "局部常量c_b常量地址:" << (int)&c_b << endl;
 

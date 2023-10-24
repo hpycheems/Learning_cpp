@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="_01io_serveice同步和异步风格.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_02deadline_timer_bind.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_03bind回调成员函数.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_04io_service多线程下的使用.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_05同步客户端.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_06同步服务器.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_07异步日期客户端服务端.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_08Echo服务端.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_09Echo客户端.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_10聊天室服务器.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_11聊天室客户端.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="structHeader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SyncServer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SyncClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="session.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="endpoint.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="chat_message.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="chat_server.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="chat_client.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="structHeader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="New_chat_message.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="New_chat_client.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="session.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="endpoint.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MsgNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

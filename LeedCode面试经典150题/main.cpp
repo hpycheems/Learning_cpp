@@ -281,7 +281,7 @@ int maxProfit_(vector<int>& prices) {
 
 
 
-int main() {
+int main1() {
 	//test_2();
 	Solution1 p;
 	vector<int> a = { 1,3,5,7 };

@@ -2,7 +2,7 @@
 using namespace std;
 
 //注意事项：
-// 自动推到，必须推导出一致的数据类型，才可使用
+// 自动推导，必须推导出一致的数据类型，才可使用
 template<class T>//typemane 可以替换成class 效果都一样
 void Swap(T& a, T& b) {
 	T temp = a;
@@ -26,7 +26,7 @@ void func() {
 	cout << "func函数调用" << endl;
 }
 void test2_2() {
-	func<int>();//必须指定模板类型
+	func<char>();//必须指定模板类型
 }
 
 

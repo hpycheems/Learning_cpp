@@ -22,9 +22,9 @@ public:
 		cout << "func 静态成员函数调用" << endl;
 	}
 private:
-	//静态成员变量也有访问权限
+	//静态成员变量也有访问权限限制
 	static int m_B;
-	//静态成员函数也有访问权限
+	//静态成员函数也有访问权限限制
 	void func1() {
 		cout << "func1 静态成员函数调用" << endl;
 	}

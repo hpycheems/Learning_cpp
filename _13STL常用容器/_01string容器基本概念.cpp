@@ -34,6 +34,14 @@ void test1_1() {
 
 	string s4(10, 'a');
 	cout << s4 << endl;
+
+	string s5("123123");
+
+	string s6(s5.begin(), s5.end());
+	cout << s6 << endl;
+	string s7 = "asdasdasd";// string s7("asdasdasd")
+	string s8 = { "asdasdasd" };
+	string s9{ "12312312312" };
 }
 int main1() {
 

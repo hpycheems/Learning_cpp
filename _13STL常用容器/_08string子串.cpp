@@ -16,7 +16,7 @@ void test8_2() {
 	cout << username << endl;
 }
 
-int main() {
+int main8() {
 
 	test8_1();
 	test8_2();
