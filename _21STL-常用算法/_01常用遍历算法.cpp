@@ -82,6 +82,9 @@ int main1() {
 
 	//test1_1();
 	test1_2();
+
+	auto number = Transfomr()(10);
+
 	system("pause");
 	return 0;
 }

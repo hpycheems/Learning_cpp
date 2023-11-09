@@ -4,11 +4,12 @@
 #include <list>
 #include <string>
 
-#include<chrono>
+//线程需要的头文件
+#include<chrono>//时间
 #include <thread>
-#include <atomic>
-#include <mutex>
-#include <condition_variable>
+#include <atomic>//原子操作
+#include <mutex>//锁
+#include <condition_variable>//条件变量
 
 /*
 	为什么使用多线程
@@ -83,7 +84,6 @@ double visitRange(std::thread::id id, Iter iterBegin, Iter iterEnd, Fun func) {
 	return v;
 }
 void MultiThreadTest() {
-
 	auto mainThread = std::this_thread::get_id();//获取当前线程的ID
 	std::vector<double> v;
 	for (int i = 0; i < 1000; i++)

@@ -7,7 +7,7 @@ using namespace std;
 find_if: 按条件查找元素
 原型：
 find_if(iterator beg, iterator end,_Pred);
-_Pred 谓词
+_Pred 谓词(1元谓词，2元谓词)
 找到返回指定位置迭代器，找不到返回结束迭代器
 */
 

@@ -58,6 +58,7 @@ MyNode* reverse(MyNode* node) {
 	node = prev;
 	return node;
 }
+
 //指针 转换
 void NewFunction01()
 {
@@ -167,6 +168,9 @@ class Normal :public ObjectA {
 public:
 	explicit Normal(int a) : ObjectA(a), m_a(a + 1), m_resource(new int(a + 2)){
 		cout << "Normal 的构造" << endl;
+		if (m_resource) {
+			std::cout << "m_resource is true";
+		}
 	}
 	~Normal() { 
 		cout << "Normal 的析构" << endl;
@@ -175,7 +179,7 @@ public:
 private:
 	ObjectA m_a;
 	Evil m_evil;
-	int* m_resource;//当顺序调换时 会造成内存泄露
+	int* m_resource = nullptr;//当顺序调换时 会造成内存泄露
 };
 #pragma endregion
 
@@ -670,7 +674,7 @@ void LockFunc() {
 }
 
 int main() {
-	LockFunc();
+	//LockFunc();
 	//logTest1();
 	//logTest2();
 
@@ -688,13 +692,13 @@ int main() {
 	//}
 	//changeOrder(v, 2);
 
-	//try {
-	//	Normal n(1);
-	//	cout << "未抛出异常" << endl;
-	//}
-	//catch (...) {
-	//	cout << "抛出异常" << endl;
-	//}
+	try {
+		Normal n(1);
+		cout << "未抛出异常" << endl;
+	}
+	catch (...) {
+		cout << "抛出异常" << endl;
+	}
 
 	//system("pause");
 	//return 0;

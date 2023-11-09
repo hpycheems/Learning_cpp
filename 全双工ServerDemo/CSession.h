@@ -28,6 +28,9 @@ public:
 	void PrintRecvData(char* data, int length);
 private:
 
+	void HandleReadHead(const boost::system::error_code& ec, std::size_t bytes_transferred, std::shared_ptr<CSession> self);
+	void HandleReadMsg(const boost::system::error_code& ec, std::size_t bytes_transferred, std::shared_ptr<CSession> self);
+
 	void HandleRead(const boost::system::error_code& ec, std::size_t bytes_transferred, std::shared_ptr<CSession>);
 	void HandleWrite(const boost::system::error_code& ec, std::shared_ptr<CSession>);
 
@@ -42,4 +45,5 @@ private:
 	std::shared_ptr<MsgNode> _recv_msg_node;
 	std::shared_ptr<MsgNode> _recv_head_node;
 	bool _b_head_parse;
+	bool _b_close;
 };

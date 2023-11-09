@@ -9,6 +9,7 @@ binary_search : 查找指定元素是否存在
 	bool binary_search(iterator beg, iterator end, value)
 	查到返回 true， 否则返回false
 	主要：查找的序列要是有序的 否则 结果会出错
+	binary_seach
 */
 
 void test5_1() {

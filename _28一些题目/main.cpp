@@ -9,16 +9,17 @@ namespace Test {
 #pragma region Class
 	class Empty {
 		virtual std::string printName() {}
-	};//sizeof() = 1
+	};//sizeof() = x86 = 4 ; x64 = 8
 	class RealEmpty:public Empty {
 		std::string printName()const { return "xx"; }
 	};
+
 	class Object_ {
 	public://无成员变量 
 		using pointer = std::shared_ptr<Object_>;
 		//因为存在一个纯虚函数，需要一个指针指向该函数， x64 sizeof() = 8; x86 sizeof() = 4
 		virtual std::string debugName() const = 0;//纯虚函数 则该类为抽象类 
-		virtual ~Object_() {}
+		~Object_() { std::cout << "bye base\n"; }
 	};
 	class RealObject :public Object_ {
 	public://无成员变量 
@@ -30,14 +31,19 @@ namespace Test {
 	}
 	//以下有什么问题么？ 为什么
 	void testCase() {
-		RealObject obj;//创建第一个对象
-		testObject(obj);
-		std::shared_ptr<Object_> pObj = std::make_shared<RealObject>();//创建第二个对象
-		testObject(*pObj);
+		//RealObject obj;//创建第一个对象
+		//testObject(obj);
+		//std::shared_ptr<Object_> pObj = std::make_shared<RealObject>();//创建第二个对象
+		//testObject(*pObj);
 		std::unique_ptr<Object_> uObj = std::make_unique<RealObject>();//创建第三个对象
 		testObject(*uObj);
+		/*
+		* 具体来说，std::unique_ptr在析构时会直接调用被指向对象的析构函数，
+		* 而不会自动调用其基类的析构函数。而std::shared_ptr在析构时会先调用被指向对象的析构函数，然后再调用其基类的析构函数。
+		*/
+
 		//错误在于 对于 uObj的析构调用的是Object的析构 pObj析构调用的是RealObject的析构， 
-		//违反C++派生继承的基本原则 所以在派生类中，析构函数需要是虚的
+		//违反C++派生继承的基本原则 所以在派生类中，析构函数需要是虚的 virtual
 		
 		//不错是因为 它两的析构中都没做什么
 	}
@@ -65,6 +71,8 @@ namespace Test {
 		delete[] intGroup;//delete应该是数组的形式
 	}
 
+
+
 	//以下代码有啥问题 指针传入的是拷贝
 	void remakeRoom(int* p, size_t size) {
 		p = (int*)malloc(sizeof(int) * size);//这里的资源是传不出来的即 泄露掉
@@ -79,11 +87,12 @@ namespace Test {
 		free(p);//此时释放的只是 在该函数开辟的内存
 	}
 
+
+
 	const char* nameInfo() {
 		char info[] = "this is a test";//局部变量 函数结束后，就会被释放掉了，返回的指针也称为野指针
 		return info;
 	}
-
 	void testInfo() {
 		std::string info;
 		if (info.empty()) info = nameInfo();
@@ -123,7 +132,8 @@ namespace Test {
 			}
 		}
 		group.resize(left);
-		//stl remove() 在区间内的元素 往后移动 最后返回第一个要干掉的元素的迭代器
+
+		//stl remove() 在区间内的元素等于value的 往后移动 最后返回第一个要干掉的元素的迭代器
 		group.erase(std::remove(group.begin(), group.end(), value), group.end());
 	}
 	void testRemoveAllSameValue() {
@@ -173,7 +183,8 @@ namespace CStruct {
 		auto next = header->next;
 		if (!next)
 			return false;
-		//两个人跑步 一个快一点，一个慢一点，当两个相遇时，则这个操作是圆的
+		//两个人跑步 一个快一点，一个慢一点，当两个相遇时，则这个操场是圆的
+		//当相遇时 让nextNext = head 让后两人每一次移动 1个位置，下次相遇时就是环的开始
 		auto nextNext = next->next;
 		while (next && nextNext) {
 			if (next == nextNext) {//此时两人相遇
@@ -194,8 +205,6 @@ namespace CStruct {
 			header = header->next;
 		}
 	}
-	//has two state
-	
 	void testSList() {
 		SList* next = nullptr;
 		SList* current = nullptr;
@@ -236,7 +245,7 @@ namespace CStruct {
 	void valueTest() {
 		char a = 64;// 0100 0000
 		char b = a << 1;// 1000 0000 -128
-		char c = b >> 1;// 0100 0000 -64
+		char c = b >> 1;// 0100 0000 -64 因为往右移时 b是 -数 补1
 		std::cout << "a = " << a << std::endl;
 		// 输出的 b 和 c是什么 输出的结果不唯一 为什么  b = � c = 空 为什么呢？
 		std::cout << "b = " << b << " "<< "c = " << c << std::endl;
@@ -393,11 +402,34 @@ namespace Exception {
 //判断机器的大小端
 void is_big_ro_little_ending() {
 	int i = 1;
+	//小端 存高地址
+	//大端 存底地址
+
 	if (*(char*)&i == 1) {
 		//小端
 	}
 	else {
 		//大端
+	}
+}
+
+//flaot和bool比较
+void equesFloatAndBool() {
+	float f1 = 0.1f;
+	if (f1 < FLT_EPSILON && f1 > FLT_EPSILON) {
+
+	}
+	else {
+
+	}
+
+
+	double d1 = 0.0;
+	if (d1 <= DBL_EPSILON && d1 >= DBL_EPSILON) {
+	
+	}
+	else {
+	
 	}
 }
 
@@ -421,8 +453,13 @@ int main() {
 	//Test::testRemakeRoom();
 
 	//std::cout << sizeof(char) << std::endl;
-	char a = 64;
-	char b = a << 1;
-	std::cout << (int)b << std::endl;
+	//char a = 64;
+	//char b = a << 1;
+	//std::cout << (int)b << std::endl;
+
+	std::cout << sizeof(Test::Empty) << "\n";
+	std::cout << sizeof(Test::RealEmpty) << "\n";
+	Test::testCase();
+	Test::testInfo();
 	return 0;
 }

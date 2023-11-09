@@ -35,7 +35,7 @@ void test20_1() {
 	cout << endl;
 }
 
-int main() {
+int main20() {
 
 
 	test20_1();
