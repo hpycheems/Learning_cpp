@@ -71,7 +71,7 @@ public:
 };
 
 
-int main() {
+int main1() {
 	
 	AbstructFactory* facotryX = new ConcreteFactoryX;
 

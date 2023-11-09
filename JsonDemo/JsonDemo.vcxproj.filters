@@ -15,31 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="_01抽象工厂.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_02适配器模式.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_03桥接模式.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_04建造者模式.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_05职责链模式.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_06命令模式.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_07组合模式.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_08装饰者模式.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_09外观模式.cpp">
+    <ClCompile Include="JsonDemo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

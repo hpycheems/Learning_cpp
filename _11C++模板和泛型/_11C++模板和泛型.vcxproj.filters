@@ -60,6 +60,9 @@
     <ClCompile Include="_15类模板案例.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="_16SingleTon.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myArray.hpp">

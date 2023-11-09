@@ -6,6 +6,7 @@ class Person {
 public:
 	Person(NameType name, AgeType Age):m_Name(name),m_Age(Age) {}
 
+
 	NameType m_Name;
 	AgeType m_Age;
 };

@@ -142,6 +142,7 @@
     <ClCompile Include="_13类模板分文件编写.cpp" />
     <ClCompile Include="_14类模板与友元.cpp" />
     <ClCompile Include="_15类模板案例.cpp" />
+    <ClCompile Include="_16SingleTon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myArray.hpp" />

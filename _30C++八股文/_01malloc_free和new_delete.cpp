@@ -35,7 +35,7 @@ void test_1() {
 	int* numB = new int(10);
 }
 
-int main() {
+int main1() {
 	
 
 
