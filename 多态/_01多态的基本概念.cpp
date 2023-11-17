@@ -35,11 +35,11 @@ public :
 class Cat :public Animal {
 public :
 	// 重写 ：返回值 函数名称 参数列表完全相同
-	void speak() {
+	void speak(){
 		this->Animal::speak();//Base::speck();
 		cout << "猫 说话" << endl;
 	}
-	void Speak() {
+	void Speak(){
 		Animal::speak();
 		cout << "猫 说话" << endl;
 	}

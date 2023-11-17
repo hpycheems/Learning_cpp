@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="_09排序.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="_07图.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

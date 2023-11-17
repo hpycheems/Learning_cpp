@@ -675,8 +675,8 @@ void LockFunc() {
 
 int main() {
 	//LockFunc();
-	//logTest1();
-	//logTest2();
+	logTest1();
+	logTest2();
 
 	//testParentAndChild();
 	//sharedPtrWithWealPtr();
@@ -692,13 +692,13 @@ int main() {
 	//}
 	//changeOrder(v, 2);
 
-	try {
-		Normal n(1);
-		cout << "未抛出异常" << endl;
-	}
-	catch (...) {
-		cout << "抛出异常" << endl;
-	}
+	//try {
+	//	Normal n(1);
+	//	cout << "未抛出异常" << endl;
+	//}
+	//catch (...) {
+	//	cout << "抛出异常" << endl;
+	//}
 
 	//system("pause");
 	//return 0;
