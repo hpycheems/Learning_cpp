@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="_06树.cpp" />
     <ClCompile Include="_07图.cpp" />
     <ClCompile Include="_09排序.cpp" />
   </ItemGroup>
