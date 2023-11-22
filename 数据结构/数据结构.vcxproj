@@ -127,6 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="_01数据结构绪论.cpp" />
+    <ClCompile Include="_02算法.cpp" />
+    <ClCompile Include="_03线性表.cpp" />
     <ClCompile Include="_06树.cpp" />
     <ClCompile Include="_07图.cpp" />
     <ClCompile Include="_09排序.cpp" />

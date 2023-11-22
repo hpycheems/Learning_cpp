@@ -433,6 +433,34 @@ void equesFloatAndBool() {
 	}
 }
 
+struct Vector {
+	int x;//e
+	int y;//w
+	int z;//n
+	int w;//s
+	int getSum() {
+		return (abs(x) + abs(y) + abs(z) + abs(w));
+	}
+	int getHorizontal() {
+		return (x + y);
+	}
+	int getVertical() {
+		return (z + w);
+	}
+};
+
+bool GoBakcOrigin(Vector parameter) {
+	if (parameter.getSum() > 10)
+		return false;
+	if (parameter.getHorizontal() != 0 || parameter.getVertical() != 0) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+
 
 int main() {
 	srand((unsigned int)time(NULL));
