@@ -3,7 +3,7 @@
 .vs/
 Debug/
 x64/
-*.sln
+#*.sln
 
 # Compiled Object files
 *.slo
