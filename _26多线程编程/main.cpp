@@ -51,7 +51,7 @@ void firstThread() {
 
 
 	//线程的终结 在线程完成工作后结束
-	t.join();
+	t.join();//让当前线程等待该线程执行结束
 }
 
 
@@ -92,7 +92,7 @@ void MultiThreadTest() {
 	}
 	std::cout << v.size() << "\n";
 	double value = 0.0;
-	auto nowc = clock();//函数返回自程序开始执行到当前位置，处理器走过的时钟打点数 1毫秒
+	auto nowc = clock();//函数返回自程序开始执行到当前位置，处理器走过的时钟打点数 1毫秒a
 	for (auto& info : v) {
 		value += caculate(info);
 	}
@@ -597,21 +597,182 @@ void conditionVariableVersion() {
 */
 
 
+//====================================================
+//发起线程
+namespace useThread {
+	void thread_work(std::string str) {
+		using std::cout;
+		cout << "str is" << str << "\n";
+	}
+	std::string str = "lkx";
+	//std::thread t1(thread_work, str);
+
+	//等待线程
+	void waiteThread() {
+		std::thread t2(thread_work, "xkl");
+
+		t2.join();
+	}
+	//仿函数作为线程工作方法
+	class background_stack {
+	public :
+		void operator()(std::string str) {
+			std::cout << "str is" << str << "\n";
+		}
+	};
+	void threadParameter() {
+		//当没有传递参数时 
+		std::thread t2(background_stack(), "lkx");
+		t2.join();
+		//可用 或者多加一个括号 ((background_stack()))
+		std::thread t3{ background_stack() ,"lkx"};
+		t3.join();
+	}
+
+	//Lambda表达式
+	void LambdaTest() {
+		std::thread t2([](std::string) {std::cout << "str is" << str << "\n"; }, "lkx");
+		t2.join();
+	}
+
+	//线程detach
+	struct func {
+		int& _i;
+		func(int& i) :_i(i) {}
+		void operator()() {
+			for (int i = 0; i < 3; ++i) {
+				_i = i;
+				std::cout << "_i is " << _i << "\n";
+				std::this_thread::sleep_for(std::chrono::seconds(1));
+			}
+		}
+	};
+	void DetachThread() {//采用分离的方式在后台独自运行，称为守护线程
+		int some_local_state = 0;
+		func myFunc(some_local_state);
+		std::thread t2(myFunc);
+		//隐患，访问局部变量，局部变量可能会随着}结束而回收或随着主线程退出而回收 容易出现崩溃
+		/*
+		* 解决措施：
+		*	通过智能指针传递参数，因为引用计数会随着赋值增加，可以保证局部变量在使用期间不会被释放
+		*	将局部变量的值作为参数传递，那么需要局部变量有拷贝复制的功能，而且拷贝消耗空间和效率
+		*	将线程运行的方式修改为join，这样能保证局部变量被释放前线程已经运行结束。但是这么做可能会影响运行逻辑。
+		*/
+		t2.detach();
+		//detach注意事项
+		//防止主线程退出过快，需要停顿一下，让子线程跑起来detach
+	}
+
+	//异常处理
+	void catch_exception() {
+		int some_local_state = 0;
+		func myFunc(some_local_state);
+		std::thread t2{ myFunc };
+		try {
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+		}
+		catch (std::exception& e){
+			t2.join();
+			throw;
+		}
+		t2.join();
+	}
+	//RAII技术：技术是一种在C++中实现资源管理的方法，它通过将资源的获取和释放封装在对象的构造函数和析构函数中来实现。
+	class thread_guard {
+	private:
+		std::thread& _t;
+	public:
+		explicit thread_guard(std::thread& t) : _t(t) {}
+		~thread_guard() {
+			if (_t.joinable()) {
+				_t.join();
+			}
+		}
+
+		thread_guard(const thread_guard& value) = delete;
+		thread_guard& operator=(const thread_guard& value) = delete;	
+	};
+	void auto_guard() {
+		int some_local_state = 0;
+		func myFunc(some_local_state);
+		std::thread t2(myFunc);
+		thread_guard g(t2);
+		//TODO 别的事
+	}
+
+	//慎用隐式转换 比如char* 转换为 string 等。这些隐式转换在线程的调用上可能会造成崩溃
+	//改进：将参数传递给线程时显示转换为string
+	void safe_oops(int some_param) {
+		char buffer[1024];
+		//sprintf(buffer, "%i", some_param);
+		std::thread t2([](int number, std::string str) {}, 3, std::string(buffer));
+	}
+
+
+	//引用参数
+	/*当线程要调用的回调函数参数为引用类型时，需要将参数显示转化为引用对象传递给线程的构造函数，
+	如果采用如下调用会编译失败
+
+	即使函数change_param的参数为int&类型，我们传递给t2的构造函数为some_param,
+	也不会达到在change_param函数内部修改关联到外部some_param的效果。
+
+	因为some_param在传递给thread的构造函数后会转变为右值保存，右值传递给一个左值引用会出问题，所以编译出了问题。
+	*/
+	void change_param(int& param) {
+		param++;
+	}
+	void ref_oops(int some_param) {
+		/*std::thread t2(change_param, some_param);
+		t2.join();*/
+		//改进
+		std::thread t2(change_param, std::ref(some_param));
+		t2.join();
+	}
+
+	//绑定类成员函数
+	/*
+	如果thread绑定的回调函数是普通函数，可以在函数前加&或者不加&，
+	因为编译器默认将普通函数名作为函数地址，如下两种写法都正确
+
+	但是如果是绑定类的成员函数，必须添加&
+	*/
+	class X {
+	public:
+		void do_lengthy_work() {
+			std::cout << "do_lengthy_work\n";
+		}
+	};
+	void bind_class_oops() {
+		X my_X;
+		std::thread t2(&X::do_lengthy_work, &my_X);
+		t2.join();
+	}
+
+	//使用move操作
+	/*
+	* 有时候传递给线程的参数是独占的，所谓独占就是不支持拷贝赋值和构造，
+		但是我们可以通过std::move的方式将参数的所有权转移给线程
+	*/
+	void deal_unique(std::unique_ptr<int> p) {
+		std::cout << "unique ptr data is " << *p << std::endl;
+		(*p)++;
+		std::cout << "after unique ptr data is " << *p << std::endl;
+	}
+	void move_oops() {
+		auto p = std::make_unique<int>(100);
+		std::thread t2(deal_unique, std::move(p));
+		t2.join();
+		//不能再使用p了，p已经被move废弃
+	}
+}
+
+//thread 原理（看不懂）
+
 
 int main() {
 
-	//unsigned int n = std::thread::hardware_concurrency();//建议的线程数
-	//std::cout << n << "\n";
-	//
-	//MultiThreadTest();
-	//killThreadTest();
-	//threadSync();
-	//threadInteractable();
-	//SingleThreadVersion();
-	//MultableThreadVersion();
-
-	conditionVariableVersion();
-
+	useThread::DetachThread();
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 	system("pause");
 	return 0;
 }

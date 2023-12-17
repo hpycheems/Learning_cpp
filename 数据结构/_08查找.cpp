@@ -56,7 +56,7 @@ int Sequntial_Search(std::vector<int> v, int num) {
 int Sequntial_Search2(std::vector<int> v, int num) {
 	int i;
 	i = v.size();
-	if (v[i] != num) {
+	while(v[i] != num) {
 		--i;
 	}
 	return i;

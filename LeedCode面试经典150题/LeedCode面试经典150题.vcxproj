@@ -130,6 +130,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="_01贪心算法.cpp" />
     <ClCompile Include="_02双指针.cpp" />
+    <ClCompile Include="_03二分法.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

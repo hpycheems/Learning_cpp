@@ -18,7 +18,7 @@ void test7_1() {
 	cout << "str = " << str << endl;
 }
 
-int main7() {
+int main() {
 
 	test7_1();
 	system("pause");

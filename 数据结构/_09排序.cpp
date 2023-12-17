@@ -39,10 +39,10 @@ void BubbleSort0(vector<int>& nums) {
 	int lenght = nums.size() - 1;
 	for (size_t i = 0; i < lenght; i++)
 	{
-		for (size_t j = i + 1; j <= lenght; j++)
+		for (size_t j = 1; j <= lenght; j++)
 		{
-			if (nums[i] > nums[j]) {
-				swap(nums[i], nums[j]);
+			if (nums[j] < nums[j-1]) {
+				swap(nums[j], nums[j-1]);
 			}
 		}
 	}
@@ -204,7 +204,6 @@ void HeapSort(vector<int>& nums) {
 }
 #pragma endregion
 
-
 #pragma region 归并排序
 /*
 *  归并排序就是利用归并的思想实现的排序方法。
@@ -302,6 +301,12 @@ int Partition(std::vector<int>& L, int low, int high) {
 	}
 	return low;
 }
+//快速排序的优化：
+// 1.优化选取枢轴：（1）随机选取枢轴。 （2）三位数取中法{左端，中间，右端}
+// 2.优化不必要的交换：将pivotkey备份，然后在之前是swap时，只是替换工作，最终low与high会合，在将备份的数组赋值回L[low]
+// 3.优化小数组时的排序方案：当数据量较小时，直接使用直接插入排序即可
+// 4.优化递归操作:在循环中（low < hight） 中实现尾递归（QSort(L, low, pivot - 1)） low = pivot + 1;
+		
 #pragma endregion
 
 

@@ -99,15 +99,41 @@ int eraseOverlapIntervals(std::vector<std::vector<int>>& intervals) {
 	}
 	return total;
 }
+
 //种花问题
+/*
+*	假设有一个很长的花坛，一部分地块种植了花，另一部分却别有。可是，花不能种植在相邻的
+*	地块上，它们会争夺水源，两者都会死去。
+*
+*	给定一个数组flowerbed表示花坛，由若干0和1组成，其中0表示没有种植花，1表示种植了花。
+*	另一个数n，能否在不打破种植规则的情况下种入n朵花。能则返回true，不能则返回false
+*/
 bool canPlaceFlowers(std::vector<int>& flowerbed, int n) {
-	return false;
+	int num = flowerbed.size();
+	int count = 0;
+	for (int i = 0; i < num; ++i) {
+		if ((i == 0 || flowerbed[i - 1] == 0)
+			&& flowerbed[i] == 0
+			&& (i == num - 1 || flowerbed[i + 1] == 0))
+		{
+			++count;
+			flowerbed[i] = 1;
+		}
+	}
+	return count >= n;
 }
 
+
 //用最少数量的箭引爆气球
+/*
+* 有一些球形气球贴在一堵用 XY 平面表示的墙面上。墙面上的气球记录在整数数组 points ，
+* 其中points[i] = [xstart, xend] 表示水平直径在 xstart 和 xend之间的气球。你不知道气球的确切 y 坐标
+* 
+* 返回引爆所有气球所必须射出的 最小 弓箭数 。
+*/
 int findMinArrowShots(std::vector<std::vector<int>>& points) {
 	int n = points.size();
-	if(n < 2) {
+	if (n < 2) {
 		return 1;
 	}
 	std::sort(points.begin(), points.end(), [](std::vector<int>& a, std::vector<int>& b) {
@@ -127,6 +153,11 @@ int findMinArrowShots(std::vector<std::vector<int>>& points) {
 /*
 * 在得到每个字母最后一次出现的下标位置之后，可以使用贪心的方法将字符串划分为尽可能多的片段
 * 
+* 给你一个字符串 s 。我们要把这个字符串划分为尽可能多的片段，同一字母最多出现在一个片段中。
+* 注意，划分结果需要满足：将所有划分结果按顺序连接，得到的字符串仍然是 s 。
+* 
+* 思路：先记录每个字母最后出现的下标， 由于同一个字母只能出现在一个片段中，所以从左往右遍历，取遍历到的字母的最后出现位置的最大值。
+*		当遍历到的小标与最大值下标相等时，这时的这一片段符合要求。
 */
 std::vector<int> partitionLabels(std::string s) {
 	int list[26];
@@ -147,8 +178,12 @@ std::vector<int> partitionLabels(std::string s) {
 	}
 	return partition;
 }
+
 //买卖股票的最佳时机 II 由于交易次数不受限制，可以使用贪心算法
-int maxProfit(std::vector<int>& prices) {
+/*
+*  由于购买不受限制，只要在购买后一天卖出盈利即可卖出。
+*/
+int maxProfit01(std::vector<int>& prices) {
 	int len = prices.size();
 	if (len < 2) {
 		return 0;

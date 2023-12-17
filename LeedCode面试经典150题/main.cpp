@@ -85,11 +85,10 @@ public:
 
 
 		//官方的方法 双指针
-		int left = 0, right = nums.size();
+		int left = 0, right = nums.size() - 1;
 		while (left < right) {
 			if (nums[left] == val) {
-				nums[left] = nums[right - 1];
-				right--;
+				nums[left] = nums[right--];
 			}
 			else {
 				left++;
@@ -120,7 +119,7 @@ void test_2() {
 }
 #pragma endregion
 
-#pragma region 删除有序数组中的重复项
+#pragma region 删除有序数组中的重复项(使每个元素 只出现一次 )
 int removeDuplicates(vector<int>& nums) {
 	//官方 双指针 
 	int n = nums.size();
@@ -148,7 +147,7 @@ int removeDuplicates(vector<int>& nums) {
 }
 #pragma endregion
 
-#pragma region 删除有序数组中的重复项
+#pragma region 删除有序数组中的重复项(使得出现次数超过两次的元素只出现两次 )
 int removeDuplicatesl(vector<int>& nums) {
 	/*int n = nums.size();
 	if (n <= 0) {

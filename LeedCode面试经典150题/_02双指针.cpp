@@ -29,6 +29,8 @@ int (*minus)(int, int) = substraction;
 //Tow Sum 
 /*
 * 在一个增序的整数数组里找到两个数，使它们的和为给定值。已知有且只有一对解。
+* 
+* 思路：因为数组有序，从头以及从尾便利，当两个数相加小于给定值时，left向右移动，反之right向左移动
 */
 std::vector<int> towSum(std::vector<int>& numbers, int target) {
 	int length = numbers.size();
@@ -83,7 +85,7 @@ ListNode* detectCycle(ListNode* head) {
 		if (!fast || !slow) return nullptr;
 		slow = slow->next;
 		fast = fast->next->next;
-	} while (fast != head);
+	} while (fast != slow);//当 slow与fast相遇，即说明存在环，
 	fast = head;
 	while (fast != slow) {
 		slow = slow->next;
@@ -98,8 +100,54 @@ ListNode* detectCycle(ListNode* head) {
 * 复杂度不得超过 O(n)。
 */
 
-int main() {
 
+//平方数之和
+/*
+*	给定一个非负整数c,你要判断是否存在两个整数 a 和 b，使得 a2 + b2 = c 
+*/
+bool judgeSquareSum(int c) {
+	long left = 0, right = sqrt(c);
+	while (left <= right)
+	{
+		if (left * left + right * right > c)
+			--right;
+		else if (left * left + right * right < c)
+			++left;
+		else return true;
+	}
+	return false;
+}
 
+//验证回文||
+/*
+* 一个字符串s，最多个删除一个字符
+*/
+bool isValid(std::string s, int i, int j);
+bool validPalindrome(std::string s) {
+	int left = 0, right = s.size() - 1;
+	while (left <= right) {
+		if (s[left] != s[right]) {
+			return (isValid(s, left + 1, right) || isValid(s, left, right - 1));
+		}
+		++left;
+		--right;
+	}
+	return true;
+}
+bool isValid(std::string s, int i, int j) {
+	while (i < j)
+	{
+		if (s[i] != s[j]) {
+			return false;
+		}
+		--j;
+		++i;
+	}
+	return true;
+}
+
+int main3() {
+
+	std::cout << judgeSquareSum(3) <<std::endl;
 	return 0;
 }

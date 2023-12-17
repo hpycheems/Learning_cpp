@@ -33,5 +33,14 @@
     <ClCompile Include="_03线性表.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="_04栈和队列.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_05串.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="_08查找.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
